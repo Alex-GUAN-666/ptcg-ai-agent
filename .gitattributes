@@ -1,0 +1,4 @@
+# Keep generated-source checksums stable across Linux and Windows checkouts.
+* text=auto eol=lf
+*.f32 -text
+*.png -text

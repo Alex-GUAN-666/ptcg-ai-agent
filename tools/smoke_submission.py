@@ -2,7 +2,8 @@
 
 This imports and executes main.py; it is NOT a security sandbox. Only run code
 you trust. The recorded artifact hashes must match. No simulator or match
-outcomes are tested. The original code and weights are not distributed here.
+outcomes are tested. This checks a separately held original ZIP; a modular
+source/weight release is available in ptcg_agent/.
 """
 
 from __future__ import annotations

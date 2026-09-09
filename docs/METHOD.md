@@ -52,6 +52,9 @@ with the architecture, evaluation opponents, and player seats held fixed.
 ## Inspected deployed architecture
 
 The following describes the locally inspected, unchanged `submission2.zip`.
+The same inference calculations and weight bytes are now published in
+[model.py](../ptcg_agent/model.py), [features.py](../ptcg_agent/features.py), and
+[controller.py](../ptcg_agent/controller.py). See [release transformations](RELEASE.md).
 
 | Component | Role |
 | --- | --- |
@@ -91,6 +94,9 @@ is not used in place of this measured export count.
 
 The retrospective (23:01–29:29) explains the development sequence. V67/V76 source
 files support the later stages; V20/V40 history comes from the course materials.
+These are internal iteration numbers, not standardized algorithm names. The
+[training-reference guide](../training_reference/README.md) links the corresponding
+source files and identifies missing dependencies.
 
 | Version | Main change | Purpose |
 | --- | --- | --- |

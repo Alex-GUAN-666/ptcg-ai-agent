@@ -1,0 +1,21 @@
+{
+  "source_main_sha256": "462488e54b75feb0515c8a5bc8561ab414baad4f3a4dae6faa398052eef3dc44",
+  "source_deck_sha256": "48f1a03e8ab8162f6dc608e6743a4f3b32004cb702ca447050e62055b85defbf",
+  "parameter_buffer_unchanged": true,
+  "transformations": [
+    "Split schema, features, model and final controller into modules",
+    "Externalize unchanged float32 bytes and tensor layout",
+    "Rename runtime classes for readability",
+    "Omit shadowed earlier controller and unused base forward method",
+    "Keep feature definitions, including original later-name overrides"
+  ],
+  "generated_files": {
+    "ptcg_agent/schema.py": "55528aea4c8dd151059269f1125b46e672c600042c0f194e80bd4dca94449855",
+    "ptcg_agent/features.py": "043a64f4238550e50534c7da96400da48329be0926356b36b3d8035cd81695bd",
+    "ptcg_agent/model.py": "08bfe9108993f6c90308c95debcbc0d6d532f47e7ede226c71523f0eb989c40d",
+    "ptcg_agent/controller.py": "18113f2e0c3e33a6f19727d47972647a9d1c7522ac40083331661ef14010814d",
+    "ptcg_agent/assets/parameters.f32": "70a283984fb2f21e93d9dcb67ca7fc228622523d80124140e206560e003a144e",
+    "ptcg_agent/assets/layout.json": "fefbf3a01687a1ecd1b323597368d353d1d53f9ddafb057aa8744d4cf7e46465",
+    "ptcg_agent/assets/deck.csv": "48f1a03e8ab8162f6dc608e6743a4f3b32004cb702ca447050e62055b85defbf"
+  }
+}

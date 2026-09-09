@@ -1,4 +1,4 @@
-name: Toolkit checks
+name: Agent and toolkit checks
 
 on:
   push:
@@ -20,5 +20,29 @@ jobs:
       - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7
         with:
           python-version: '3.12'
-      - name: Public toolkit tests (no model weights or competition SDK)
+      - name: Public toolkit tests (standard library only)
         run: python -m unittest discover -s tests -v
+
+  model-tests:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 10
+    env:
+      OPENBLAS_NUM_THREADS: '1'
+      OMP_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7
+        with:
+          python-version: '3.12'
+      - name: Install inference dependency
+        run: python -m pip install -r requirements.txt
+      - name: Released-model tests (synthetic requests, no simulator)
+        run: python -m unittest discover -s tests_model -v
+      - name: Run synthetic decision demo
+        run: python -m examples.decision_demo

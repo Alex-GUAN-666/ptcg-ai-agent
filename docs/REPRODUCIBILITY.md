@@ -1,82 +1,109 @@
 # Reproduction: what is runnable today?
 
-## 1. Public toolkit, no competition files
+## 1. Run the released player on a synthetic decision
 
-Use Python 3.12, open a terminal in the repository root, and run:
-
-```bash
-python -m unittest discover -s tests -v
-```
-
-The public tests need only the Python standard library. They manufacture small
-fake archives to test checksums, tensor layouts, ZIP-member restrictions, size
-limits, and the selection-contract validator. They do not load model weights.
-
-## 2. Inspect an authorized local final submission
-
-Keep your existing archive outside the repository, or under `local_artifacts/`.
-That directory is ignored by Git. Do not upload the file through the browser:
-ignore rules are not a substitute for checking what you publish.
-
-```bash
-python -m tools.inspect_submission /path/to/submission2.zip --expected evidence/submission_manifest.json
-```
-
-On Windows, replace `/path/to/submission2.zip` with your own quoted path, e.g.
-`"D:\Projects\PTCG\submission2.zip"`. The `--expected` comparison
-requires the recorded `main.py`, `deck.csv`, and embedded-weight hashes. Changing
-ZIP compression alone need not change those member hashes.
-
-The command parses literal metadata with `ast`, validates the embedded float32
-buffer, and prints JSON. It does not import the submitted Python module, extract
-arbitrary archive paths, or perform network requests. It supports this specific
-two-file format, not every possible Kaggle submission.
-
-## 3. Optional trusted-code smoke check
-
-Only if you trust the original submission source:
+Use **Python 3.12** and open a terminal in the repository root:
 
 ```bash
 python -m venv .venv
 ```
 
-Activate the environment with `.venv\Scripts\Activate.ps1` in Windows PowerShell,
-or `source .venv/bin/activate` in macOS/Linux. Then:
+Activate it with `.venv\Scripts\Activate.ps1` in Windows PowerShell, or
+`source .venv/bin/activate` in macOS/Linux. Alternatively, use the environment's
+Python directly, as shown in the [Windows guide](../START_HERE_ZH.md).
 
 ```bash
-python -m pip install -r requirements-smoke.txt
-python -m tools.smoke_submission /path/to/submission2.zip --trusted
+python -m pip install -r requirements.txt
+python -m examples.decision_demo
 ```
 
-Unlike the inspector, this **executes the original code** in your Python process.
-It is not a security sandbox. The smoke tool requires a match to the recorded
-artifact before importing it. Its temporary files are removed afterwards.
+The actual packaged model ranks three NUMBER options (0, 1, and 2) in a
+fabricated DRAW_COUNT request. It returns an option **index**, not the option's
+value. In the recorded NumPy-only environment the selected index is 2.
+Printed scores are preferences, not probabilities.
 
-The local check used Python 3.12.14 and NumPy 2.3.5. It tests the deck callback,
-selection counts and index bounds on artificial observations, repeat/reset
-paths, and finite score/count outputs. See the
-[recorded local report](../evidence/local_smoke_report.json).
+No GPU, API key, separately downloaded checkpoint, or LLM service is needed.
+The package contains the preserved float32 weights. Without the competition
+`cg` SDK, the original feature code uses fallback card metadata. This example
+does not represent a validated reachable game state or measure playing strength.
 
-No GPU is required for these checks. No simulator match, original training run,
-or leaderboard reproduction is performed.
+For integration into a compatible simulator:
+
+```python
+from ptcg_agent import Agent
+
+player = Agent()  # one independent history per game
+deck = player({"select": None})
+# selected_indices = player(observation_from_your_compatible_simulator)
+```
+
+A module-level `agent(observation, configuration=None)` callback is also exported.
+It shares one instance and must not be used for concurrent independent games.
+The modular package is not automatically a validated Kaggle submission ZIP.
+
+## 2. Run the public tests
+
+```bash
+python -m unittest discover -s tests -v
+python -m unittest discover -s tests_model -v
+```
+
+The first suite has 24 standard-library tests for the inspection toolkit.
+The second has 13 tests that load the released weights, verify hashes, exercise
+synthetic requests, check history isolation, and compare recorded selections.
+Neither suite runs official games or trains a model. CI runs the model suite
+on Linux and Windows. See [validation scope](VALIDATION.md).
+
+## 3. Optional checks against the separately held original ZIP
+
+These commands are for holders of the original `submission2.zip`; that ZIP is
+not needed to run the public model or tests.
+
+Static integrity inspection, without executing the source:
+
+```bash
+python -m tools.inspect_submission /path/to/submission2.zip --expected evidence/submission_manifest.json
+```
+
+For a trusted original only, execute its synthetic checks and compare it with
+the modular release:
+
+```bash
+python -m tools.smoke_submission /path/to/submission2.zip --trusted
+python -m tools.compare_release /path/to/submission2.zip --trusted
+```
+
+On Windows, substitute your quoted path, for example
+`"D:\Projects\PTCG\submission2.zip"`. These tools require matching original
+member/weight hashes before execution. The trusted-code tools are **not security
+sandboxes**. Keep the original outside the repository or under ignored
+`local_artifacts/`.
+
+The [recorded comparison](../evidence/release_parity.json) used Python 3.12.14 /
+NumPy 2.3.5, without `cg`: 133 identical parameter tensors, 37 requests with
+matching selections/history, and 34 score/count-vector pairs with zero
+difference. For mechanical source extraction, see [build_release.py](../tools/build_release.py)
+and [release notes](RELEASE.md).
 
 ## 4. What is missing for full reproduction?
 
-The supplied V76 scripts reference earlier `v7`, `v14`, `v20`, `v40`, `v60`, and
-`v67` modules. The available V67/V76 bundles do not supply the complete dependency
-chain, original simulator installation, structured feature dataset, or exact
-training checkpoint/export metadata. Several launch scripts also contain
-machine-specific Windows paths.
+[Training references](../training_reference/README.md) expose the mature model
+and training logic but depend on earlier `v7`, `v14`, `v20`, and `v40`
+modules and prepared data absent from the supplied bundles. The references are
+not a working end-to-end trainer; PyTorch alone does not resolve those imports.
+Original simulator installation, training arrays, and exact checkpoint/export
+metadata are also missing.
 
-The supplied V76 model initializes all parameters from scratch; its documented
-defaults are not a record of a reproduced run. See
-[training configuration and version history](METHOD.md#training-and-model-evolution).
+The supplied scratch-training entry point initializes all parameters randomly.
+Its defaults describe code configuration, not an independently reproduced run.
+See [training details](METHOD.md#training-and-model-evolution).
 
-There is also an unresolved checkpoint/export alignment detail: the preserved
+There is an unresolved checkpoint/export alignment detail: the preserved
 inference artifact has 204 deck-embedding rows, while the supplied V76 metadata
 lists 181 deck IDs. The exact checkpoint and export metadata are needed to
 connect the training bundle to the final binary weights.
 
-A full training release therefore needs the missing dependencies, confirmed
-release rights, portable paths, checkpoint/export alignment, and a verified
-clean-environment run.
+A full reproduction needs the missing dependencies/data, applicable access and
+usage rights, checkpoint alignment, and a clean-environment simulator run.
+No reported training accuracy, seat-balanced matchup, or leaderboard placement
+has been reproduced by the local demo or automated tests.

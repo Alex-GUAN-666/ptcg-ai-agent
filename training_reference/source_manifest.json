@@ -1,0 +1,30 @@
+{
+  "scope": "Reference code only; full training dependencies and checkpoints are absent",
+  "files": {
+    "training_reference/v67/model_v67.py": {
+      "original_sha256": "20e3659c5be6cccd3897751001d6e890e6b968a63114f1fdaa06bec40d99d2b9",
+      "published_sha256": "cab86acdf3735e9d736f45ab13c2a49bdfb7fdf088a7d4d4059e7acae58d5aba",
+      "changes": "Add reference-status comments; replace machine-specific root where present"
+    },
+    "training_reference/v67/build_plan_targets.py": {
+      "original_sha256": "763eb94d6039f4d299b35c05ee3c21e5bf7af3148a92077db4be6191dbc96b7c",
+      "published_sha256": "1dee7482daf15c43d8cedcff66e778b20bc1145259064462995ff8cbae14a27c",
+      "changes": "Add reference-status comments; replace machine-specific root where present"
+    },
+    "training_reference/v67/train_plan_bc.py": {
+      "original_sha256": "386f9ae3728c910ab5106bf47f341a2c76abcce46eae8da50fe6c487bc6aa053",
+      "published_sha256": "b45677cff8699fd5ca874f870246e73c86d16b8aa6a160bb19451b8e6f82f628",
+      "changes": "Add reference-status comments; replace machine-specific root where present"
+    },
+    "training_reference/v76/build_dataset_latest.py": {
+      "original_sha256": "d9e56755348949354d7a8cbf50170549acbf82fc9f609d3c0f7d7d9bafa75cee",
+      "published_sha256": "12dc14079c589607064ff36de28e45e61124034712a61d69aeebd00113c87215",
+      "changes": "Add reference-status comments; replace machine-specific root where present"
+    },
+    "training_reference/v76/train_plan_scratch_all.py": {
+      "original_sha256": "d51c4f11ca5e88fc2f8f3d81d4f6ddb534569e5ef152b3f4166bd6be634c9b02",
+      "published_sha256": "a9c32e7dc9b2310bdf61ccf3588779f4f36ddfee6fae97513c132fb81b1dbbc3",
+      "changes": "Add reference-status comments; replace machine-specific root where present"
+    }
+  }
+}

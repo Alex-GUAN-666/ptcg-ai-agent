@@ -4,54 +4,73 @@
 
 This personal portfolio is maintained by **Yuzhen Guan (Alex)** and documents
 **GALEX's** entry in **The Pokémon Company - PTCG AI Battle Challenge Simulation**.
-The competition placement is reported at the team level.
+The placement is a team result, not a claim of sole authorship of every component.
 
-Method documentation uses the preserved submission, externally supplied V67/V76
-reference implementations and training files, and course materials. External
-course material is a reference source, not an attribution of GALEX team membership.
+The participant describes a workflow combining public baseline ideas, supplied
+reference implementations, and GPT/Grok-assisted discussion of state/action
+representations, tactical features, and component integration. Reported
+contributions include data preparation, experiment comparison, and submission
+integration/debugging. This is a participant account, not an independent audit
+of individual contributions.
 
-The post-competition inspection utilities, tests, and explanatory documentation
-were prepared with Codex assistance. They are distinct from the submitted
-competition system and did not cause its leaderboard performance.
+The post-competition modular release, inspection utilities, tests, and
+documentation were prepared with Codex assistance. They are distinct from
+competition-time work and did not cause the leaderboard result.
 
-## Basis for the case study
+## Evidence and method sources
 
 | Source | Used for |
 | --- | --- |
-| Participant-provided certificate and leaderboard/submission screenshots | GALEX's 264 / 6,807 placement, silver medal, and 944.2 final rating |
-| Preserved `submission2.zip` | Inference behavior, parameter layout, and file hashes recorded in the [manifest](../evidence/submission_manifest.json) |
-| Supplied V67/V76 model, target-builder, and trainer files | Auxiliary targets, warm-start versus scratch training, export behavior, and script defaults |
-| Supplied V76 dataset report | Counts of scanned episodes, prepared decisions, and option rows |
-| Participant-supplied course-session transcript | Data-selection rationale, version history, and reported experimental observations |
+| [GALEX certificate](../evidence/galex_certificate.png) and [submission screenshot](../evidence/submission_scores.png) | Team placement of 264 / 6,807, silver medal, and 944.2 final rating |
+| Preserved `submission2.zip` | Deployed inference calculations, float32 weights, deck, and [file hashes](../evidence/submission_manifest.json) |
+| Supplied V67/V76 model, target-builder, and trainer files | Auxiliary supervision, warm-start versus scratch training, and script defaults |
+| Supplied V76 dataset report | Aggregate prepared-data counts, not a regenerated dataset |
+| Participant-supplied technical reports and session transcript | Development history, data-selection rationale, and reported experimental observations |
 
-The transcript's recording date was not supplied. Relevant segments are
-11:13–12:39 (demonstrations), 20:41–22:06 (replay selection and temporal effects),
-23:01–25:40 (model evolution), and 26:39–29:29 (training and per-decision inference).
-The public [method notes](METHOD.md) summarize these sections rather than
-reproducing the meeting or identifying other attendees.
+The reference report also discusses another entry placed 191st. That placement
+is not GALEX's result. Its reported accuracy and matchup measurements are not
+claimed as independently reproduced GALEX experiments.
 
-Source code is used for exact configuration details where the spoken account is
-approximate. Meeting-reported accuracy is labeled separately from measured
-artifact properties and the team's competition result.
+Source code takes precedence over approximate spoken explanations for exact
+configuration details. Reference-reported measurements are labeled separately
+from measured artifact properties and the team's archived result.
+The transcript's recording date was not supplied. Public notes summarize its
+technical content without reproducing the transcript or identifying attendees.
 
-## Public contents
+## Publication permission and included material
 
-- Original portfolio documentation and verification utilities.
-- Synthetic test inputs and generated inspection summaries; no weight values.
-- The participant-provided result certificate.
+On **2026-09-09**, the participant confirmed that the source/artifact provider
+permitted public publication. This is the participant's reported confirmation;
+no claim of exclusive ownership or broad relicensing follows from it.
+See [NOTICE](../NOTICE.md).
 
-Original agent source, weights, raw replay data, course reports, and the full
-meeting transcript are not distributed. Source/weight release permission is
-still being confirmed. No repository-wide open-source license has been applied;
-third-party rights and attribution must be resolved before extending the release.
+Included:
 
-## Before releasing the original model
+- Readable inference source derived from the preserved final submission.
+- The original float32 weight buffer and deck bytes, with integrity manifests.
+- Five selected training-reference Python files and an aggregate dataset summary.
+- Original portfolio utilities, synthetic fixtures, tests, and result images.
 
-- [ ] Confirm permission to publish the original source and weights, with the
-  relevant rights holders and their requested attribution.
-- [ ] Check competition rules and licenses for incorporated SDK/data/code.
-- [ ] Identify the final checkpoint and its export relationship to the preserved
-  submission; version subsequent changes separately.
-- [ ] Preserve original author/license notices and check for credentials,
-  private paths, and unrelated personal files.
-- [ ] Verify installation and official-simulator behavior from a clean environment.
+Not included:
+
+- Raw replay collections, participant/team-level training records, course PDFs,
+  the full transcript, local credentials, or unrelated personal files.
+- Vendored simulator/SDK packages, card artwork, or external library sources.
+- Historical PPO scripts that were not the final training route.
+- A claim of complete dataset-to-checkpoint or official-game reproduction.
+
+## Traceability and remaining gaps
+
+The inspected source did not contain explicit author, copyright, or license
+headers. The release does not assign a new repository-wide open-source license;
+any applicable upstream notices or terms must still be respected.
+
+[release_manifest.json](../evidence/release_manifest.json) records modular
+source hashes and the unchanged parameter buffer.
+[training_reference/source_manifest.json](../training_reference/source_manifest.json)
+records the selected scripts' original/published hashes and limited edits.
+
+Missing upstream modules, the exact checkpoint/export lineage, and compatible
+simulator setup remain unresolved. The publication confirmation does not resolve
+those technical gaps or license separately obtained competition resources.
+See [reproduction status](REPRODUCIBILITY.md).

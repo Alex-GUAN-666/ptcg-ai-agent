@@ -1,0 +1,26 @@
+{
+  "episodes_scanned": 31594,
+  "decisions": 2165927,
+  "option_rows": 12424531,
+  "target_deck": "3121746f2b28",
+  "target_deck_index": 0,
+  "target_deck_decisions": 2165927,
+  "unique_decks": 181,
+  "decisions_by_day": {
+    "2026-07-20": 11531,
+    "2026-07-21": 50757,
+    "2026-07-22": 44940,
+    "2026-07-23": 61845,
+    "2026-07-24": 94804,
+    "2026-07-25": 54911,
+    "2026-07-26": 56151,
+    "2026-07-27": 93062,
+    "2026-07-28": 82637,
+    "2026-07-29": 399917,
+    "2026-07-30": 399371,
+    "2026-08-01": 318701,
+    "2026-08-02": 240295,
+    "2026-08-03": 257005
+  },
+  "scope": "Reported prepared dataset, not regenerated; team identities and local paths omitted"
+}

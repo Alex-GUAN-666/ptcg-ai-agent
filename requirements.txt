@@ -1,0 +1,3 @@
+# Local inference, demo and model checks. Training references also require
+# PyTorch and missing upstream project modules; see training_reference/README.md.
+numpy==2.3.5

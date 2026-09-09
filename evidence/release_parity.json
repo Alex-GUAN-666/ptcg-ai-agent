@@ -1,0 +1,522 @@
+{
+  "scope": "original_vs_modular_synthetic_regression_not_match_evaluation",
+  "python": "3.12.14",
+  "numpy": "2.3.5",
+  "original_main_sha256": "462488e54b75feb0515c8a5bc8561ab414baad4f3a4dae6faa398052eef3dc44",
+  "parameter_tensors_equal": 133,
+  "requests_compared": 37,
+  "score_vectors_compared": 34,
+  "max_abs_score_difference": 0.0,
+  "max_abs_count_logit_difference": 0.0,
+  "selections_and_history_equal": true,
+  "cg_package_discoverable": false,
+  "limitations": [
+    "Artificial observations, not validated reachable game positions",
+    "No official simulator matches or training were rerun",
+    "Equality in this environment does not validate SDK metadata or all possible inputs"
+  ],
+  "cases": [
+    {
+      "case": "deck",
+      "selected_indices": [
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        104,
+        104,
+        112,
+        112,
+        112,
+        112,
+        646,
+        646,
+        646,
+        646,
+        647,
+        647,
+        647,
+        648,
+        648,
+        648,
+        860,
+        860,
+        1079,
+        1079,
+        1079,
+        1080,
+        1086,
+        1086,
+        1086,
+        1086,
+        1097,
+        1097,
+        1097,
+        1122,
+        1137,
+        1152,
+        1152,
+        1152,
+        1152,
+        1182,
+        1182,
+        1219,
+        1219,
+        1219,
+        1219,
+        1227,
+        1227,
+        1227,
+        1227,
+        1231,
+        1259,
+        1259,
+        1259,
+        1259
+      ],
+      "scores_compared": false
+    },
+    {
+      "case": "empty",
+      "selected_indices": [],
+      "scores_compared": false
+    },
+    {
+      "case": "single",
+      "selected_indices": [
+        0
+      ],
+      "scores_compared": true
+    },
+    {
+      "case": "draw_quantity",
+      "selected_indices": [
+        2
+      ],
+      "scores_compared": true
+    },
+    {
+      "case": "fixed_two",
+      "selected_indices": [
+        3,
+        2
+      ],
+      "scores_compared": true
+    },
+    {
+      "case": "optional",
+      "selected_indices": [
+        4,
+        3
+      ],
+      "scores_compared": true
+    },
+    {
+      "case": "variable",
+      "selected_indices": [
+        4,
+        3
+      ],
+      "scores_compared": true
+    },
+    {
+      "case": "head_limit",
+      "selected_indices": [
+        7,
+        6,
+        8,
+        9,
+        5,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        4
+      ],
+      "scores_compared": true
+    },
+    {
+      "case": "above_head_limit",
+      "selected_indices": [
+        8,
+        9,
+        7,
+        10,
+        11,
+        12,
+        13,
+        6,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        5,
+        4,
+        3
+      ],
+      "scores_compared": true
+    },
+    {
+      "case": "synthetic_00",
+      "selected_indices": [
+        1,
+        2,
+        0
+      ],
+      "scores_compared": true
+    },
+    {
+      "case": "synthetic_01",
+      "selected_indices": [
+        11,
+        3,
+        13,
+        10,
+        15,
+        9,
+        18,
+        4,
+        0,
+        16,
+        19,
+        12,
+        6
+      ],
+      "scores_compared": true
+    },
+    {
+      "case": "synthetic_02",
+      "selected_indices": [
+        2,
+        1,
+        0
+      ],
+      "scores_compared": true
+    },
+    {
+      "case": "synthetic_03",
+      "selected_indices": [
+        0,
+        11,
+        17,
+        12,
+        6,
+        4,
+        7,
+        8,
+        16,
+        9
+      ],
+      "scores_compared": true
+    },
+    {
+      "case": "synthetic_04",
+      "selected_indices": [
+        0
+      ],
+      "scores_compared": true
+    },
+    {
+      "case": "synthetic_05",
+      "selected_indices": [
+        0,
+        2,
+        1
+      ],
+      "scores_compared": true
+    },
+    {
+      "case": "synthetic_06",
+      "selected_indices": [
+        19,
+        21
+      ],
+      "scores_compared": true
+    },
+    {
+      "case": "synthetic_07",
+      "selected_indices": [
+        11,
+        6,
+        9,
+        15,
+        17,
+        1,
+        10,
+        2,
+        5,
+        7,
+        4,
+        12,
+        13
+      ],
+      "scores_compared": true
+    },
+    {
+      "case": "synthetic_08",
+      "selected_indices": [
+        2,
+        0,
+        1
+      ],
+      "scores_compared": true
+    },
+    {
+      "case": "synthetic_09",
+      "selected_indices": [
+        5,
+        0,
+        4,
+        1,
+        2,
+        6
+      ],
+      "scores_compared": true
+    },
+    {
+      "case": "synthetic_10",
+      "selected_indices": [
+        1
+      ],
+      "scores_compared": true
+    },
+    {
+      "case": "synthetic_11",
+      "selected_indices": [
+        0,
+        2
+      ],
+      "scores_compared": true
+    },
+    {
+      "case": "synthetic_12",
+      "selected_indices": [
+        0,
+        1
+      ],
+      "scores_compared": true
+    },
+    {
+      "case": "synthetic_13",
+      "selected_indices": [
+        0
+      ],
+      "scores_compared": true
+    },
+    {
+      "case": "synthetic_14",
+      "selected_indices": [
+        18,
+        12,
+        2,
+        1,
+        25,
+        21,
+        3,
+        0,
+        14,
+        30,
+        19,
+        10,
+        17,
+        11,
+        27
+      ],
+      "scores_compared": true
+    },
+    {
+      "case": "synthetic_15",
+      "selected_indices": [
+        6,
+        7
+      ],
+      "scores_compared": true
+    },
+    {
+      "case": "synthetic_16",
+      "selected_indices": [
+        0,
+        1
+      ],
+      "scores_compared": true
+    },
+    {
+      "case": "synthetic_17",
+      "selected_indices": [
+        0,
+        2
+      ],
+      "scores_compared": true
+    },
+    {
+      "case": "synthetic_18",
+      "selected_indices": [
+        2,
+        1,
+        6,
+        4,
+        0,
+        5,
+        3
+      ],
+      "scores_compared": true
+    },
+    {
+      "case": "synthetic_19",
+      "selected_indices": [
+        3
+      ],
+      "scores_compared": true
+    },
+    {
+      "case": "synthetic_20",
+      "selected_indices": [
+        1,
+        6
+      ],
+      "scores_compared": true
+    },
+    {
+      "case": "synthetic_21",
+      "selected_indices": [
+        6,
+        1,
+        12,
+        5,
+        14,
+        16,
+        19,
+        13,
+        9,
+        7,
+        11,
+        3,
+        17
+      ],
+      "scores_compared": true
+    },
+    {
+      "case": "synthetic_22",
+      "selected_indices": [
+        1
+      ],
+      "scores_compared": true
+    },
+    {
+      "case": "synthetic_23",
+      "selected_indices": [
+        2,
+        8,
+        0,
+        11,
+        14,
+        1,
+        12,
+        7,
+        5
+      ],
+      "scores_compared": true
+    },
+    {
+      "case": "step_reset",
+      "selected_indices": [
+        0
+      ],
+      "scores_compared": true
+    },
+    {
+      "case": "repeat",
+      "selected_indices": [
+        0
+      ],
+      "scores_compared": true
+    },
+    {
+      "case": "deck_reset",
+      "selected_indices": [
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        104,
+        104,
+        112,
+        112,
+        112,
+        112,
+        646,
+        646,
+        646,
+        646,
+        647,
+        647,
+        647,
+        648,
+        648,
+        648,
+        860,
+        860,
+        1079,
+        1079,
+        1079,
+        1080,
+        1086,
+        1086,
+        1086,
+        1086,
+        1097,
+        1097,
+        1097,
+        1122,
+        1137,
+        1152,
+        1152,
+        1152,
+        1152,
+        1182,
+        1182,
+        1219,
+        1219,
+        1219,
+        1219,
+        1227,
+        1227,
+        1227,
+        1227,
+        1231,
+        1259,
+        1259,
+        1259,
+        1259
+      ],
+      "scores_compared": false
+    },
+    {
+      "case": "after_deck_reset",
+      "selected_indices": [
+        2
+      ],
+      "scores_compared": true
+    }
+  ]
+}
