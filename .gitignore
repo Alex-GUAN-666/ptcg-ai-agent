@@ -231,8 +231,7 @@ runs/
 *.pth
 .env.*
 kaggle.json
-# No original mentor reports, resumes, or chat exports in this public repository.
+# No private reference reports, resumes, or chat exports in this public repository.
 *.pdf
 *.docx
 *.pptx
-

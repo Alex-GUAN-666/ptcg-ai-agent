@@ -25,9 +25,9 @@ behavior cloning, not PPO self-play.
 ## Approach
 
 1. **Select relevant demonstrations.** The supplied V76 pipeline filters replay
-   decisions for the target deck, identified as `3121746f2b28` ("312"). The mentor
-   describes using a rolling window of high-scoring games to learn that deck's
-   action patterns.
+   decisions for the target deck, identified as `3121746f2b28` ("312"). The course
+   reference materials describe a rolling window of high-scoring games for
+   learning that deck's action patterns.
 2. **Represent the decision.** Encode cards, board state, candidate actions,
    public history, resource estimates, and tactical features such as damage,
    energy cost, and evolution.
@@ -43,9 +43,9 @@ features (V40), to auxiliary turn targets (V67). V76 reused the V67 architecture
 and trained all parameters from scratch on an updated dataset.
 See [method, data selection, and version history](docs/METHOD.md).
 
-An important observation in the mentor's retrospective was that the newest
-replay window did not always produce the strongest player. The mentor attributed
-this to differences in demonstration quality and changing opponent strategies.
+The course retrospective reports that the newest replay window did not always
+produce the strongest player, with demonstration quality and changing opponent
+strategies offered as possible explanations.
 
 ## Results
 
@@ -77,12 +77,12 @@ No third-party packages or competition files are needed for these tests.
 For inspecting an authorized local copy of `submission2.zip`, or running the
 optional trusted-code smoke checks, see [running the tools](docs/REPRODUCIBILITY.md).
 
-## Credits
+## About this repository
 
-Maintained by **Yuzhen Guan (Alex)** for the GALEX competition entry. The core agent
-and training approach were supplied by competition mentor **kaggle竞赛圈**.
-The post-competition documentation and verification toolkit were prepared with
-AI assistance. [Sources and attribution](docs/PROVENANCE.md) distinguish the team
-result, mentor-provided method, and repository work.
+A personal portfolio maintained by **Yuzhen Guan (Alex)**, documenting the GALEX
+competition entry. The post-competition documentation and verification toolkit
+were prepared with AI assistance. Method notes draw on the preserved submission,
+externally supplied reference implementations, and course materials.
+See [sources and release status](docs/PROVENANCE.md).
 
 This is an independent participant project, not an official Pokémon or Kaggle product.

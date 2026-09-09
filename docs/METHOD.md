@@ -7,7 +7,7 @@ environment, not the model, supplies candidate options. The agent returns indice
 into that list, subject to minimum and maximum selection counts.
 
 Behavior cloning fits a policy to demonstrated observation/action pairs using
-supervised learning. The final-model clarification and mentor retrospective
+supervised learning. The supplied final-model clarification and course retrospective
 identify BC as the submitted approach; PPO was not used in the final model.
 See the [behavior-cloning definition](https://imitation.readthedocs.io/en/latest/algorithms/bc.html).
 
@@ -17,7 +17,7 @@ once per turn. The initial deck callback returns a fixed 60-card list.
 
 ## Demonstrations and data selection
 
-In the retrospective (11:13–12:39 and 20:41–22:06), the mentor describes collecting
+The course retrospective (11:13–12:39 and 20:41–22:06) describes collecting
 high-scoring public replay episodes using a rolling window of about 15 days and
 focusing on the attack-oriented deck nicknamed **312**. This is a shortened deck
 identifier, not the number of cards in the deck.
@@ -38,12 +38,12 @@ also depend on upstream V40 modules absent from the supplied bundle.
 
 ### Why the replay window mattered
 
-Across the mentor's experiments, some middle-period models reportedly performed
+In the experiments described in the course materials, some middle-period models performed
 better than earlier and later ones. The proposed explanation was that early
 demonstrators were still improving, while later opponents increasingly countered
 the target deck, changing the situations and behaviors available to imitate.
 
-This is a **mentor-reported observation and hypothesis**, not a controlled
+This is a **course-reported observation and hypothesis**, not a controlled
 replay-window ablation. The practical lesson is to consider demonstrator quality
 and relevance to the intended strategy, rather than assuming newer or larger
 datasets are always better. A useful follow-up would compare replay windows
@@ -90,7 +90,7 @@ is not used in place of this measured export count.
 ## Training and model evolution
 
 The retrospective (23:01–29:29) explains the development sequence. V67/V76 source
-files support the later stages; V20/V40 history is described by the mentor.
+files support the later stages; V20/V40 history comes from the course materials.
 
 | Version | Main change | Purpose |
 | --- | --- | --- |
@@ -132,14 +132,14 @@ configurable phases:
 | Scratch training | 20 | 0.0003 |
 | Refinement | 8 | 0.00008 |
 
-The mentor reported often finding a useful checkpoint after roughly ten or more
+The course retrospective reports useful checkpoints after roughly ten or more
 epochs and little benefit from refinement. That observation does not change the
 script defaults or establish the exact epoch used by GALEX. The script selects
 a checkpoint primarily by validation top-1 agreement, with loss and auxiliary
 accuracy as tie-breakers.
 
 The meeting mentions roughly 70% validation action accuracy for an earlier
-version and around 79% for later models. These are **mentor-reported measurements
+version and around 79% for later models. These are **course-reported measurements
 from different runs**, not a reproduced, fixed-data ablation. In the inspected
 trainer, top-1 agreement means the highest-scoring option is among the
 demonstrator's selected options. It is neither exact multi-option-set accuracy

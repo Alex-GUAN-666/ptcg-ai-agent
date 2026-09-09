@@ -2,13 +2,13 @@
 
 ## Attribution
 
-This is a portfolio for **team GALEX's** entry in
-**The Pokémon Company - PTCG AI Battle Challenge Simulation**.
+This personal portfolio is maintained by **Yuzhen Guan (Alex)** and documents
+**GALEX's** entry in **The Pokémon Company - PTCG AI Battle Challenge Simulation**.
+The competition placement is reported at the team level.
 
-The repository is maintained by **Yuzhen Guan (Alex)**. The core agent and V76
-training approach were supplied by competition mentor **kaggle竞赛圈**, who also
-provided the technical retrospective. Credit for the competition placement is
-at the GALEX team level.
+Method documentation uses the preserved submission, externally supplied V67/V76
+reference implementations and training files, and course materials. External
+course material is a reference source, not an attribution of GALEX team membership.
 
 The post-competition inspection utilities, tests, and explanatory documentation
 were prepared with Codex assistance. They are distinct from the submitted
@@ -22,7 +22,7 @@ competition system and did not cause its leaderboard performance.
 | Preserved `submission2.zip` | Inference behavior, parameter layout, and file hashes recorded in the [manifest](../evidence/submission_manifest.json) |
 | Supplied V67/V76 model, target-builder, and trainer files | Auxiliary targets, warm-start versus scratch training, export behavior, and script defaults |
 | Supplied V76 dataset report | Counts of scanned episodes, prepared decisions, and option rows |
-| Participant-supplied mentor meeting transcript | Data-selection rationale, version history, and reported experimental observations |
+| Participant-supplied course-session transcript | Data-selection rationale, version history, and reported experimental observations |
 
 The transcript's recording date was not supplied. Relevant segments are
 11:13–12:39 (demonstrations), 20:41–22:06 (replay selection and temporal effects),
@@ -40,7 +40,7 @@ artifact properties and the team's competition result.
 - Synthetic test inputs and generated inspection summaries; no weight values.
 - The participant-provided result certificate.
 
-Original agent source, weights, raw replay data, mentor reports, and the full
+Original agent source, weights, raw replay data, course reports, and the full
 meeting transcript are not distributed. Source/weight release permission is
 still being confirmed. No repository-wide open-source license has been applied;
 third-party rights and attribution must be resolved before extending the release.
@@ -48,7 +48,7 @@ third-party rights and attribution must be resolved before extending the release
 ## Before releasing the original model
 
 - [ ] Confirm permission to publish the original source and weights, with the
-  relevant mentor/team rights holders and their requested attribution.
+  relevant rights holders and their requested attribution.
 - [ ] Check competition rules and licenses for incorporated SDK/data/code.
 - [ ] Identify the final checkpoint and its export relationship to the preserved
   submission; version subsequent changes separately.

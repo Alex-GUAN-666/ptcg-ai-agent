@@ -10,7 +10,7 @@ team **GALEX**, **264th of 6,807 teams**, a **Silver Medal**, and an award date 
 of **944.2**. The score is not a win percentage.
 
 The placement and rating are taken from the participant's archived competition
-evidence. The mentor's method history is documented separately in
+evidence. Model-development history is documented separately in
 [method notes](METHOD.md).
 
 ## Checks performed locally
@@ -33,7 +33,7 @@ The public unit suite also runs in [GitHub Actions](https://github.com/Alex-GUAN
 
 ## Reading the training metrics
 
-The mentor's retrospective reports validation action agreement around 79% for
+The course retrospective reports validation action agreement around 79% for
 later models. Those figures are not reproduced measurements in this repository.
 The supplied trainer's top-1 metric checks whether its highest-scoring option
 belongs to the demonstrator's selected options; count prediction is evaluated
@@ -43,7 +43,7 @@ separately. Neither metric is a tournament win rate.
 
 - Full games in the official simulator, seat-balanced matchups, or win rates.
 - End-to-end dataset construction, training, checkpoint selection, or export.
-- The mentor report's validation/test accuracy or head-to-head measurements.
+- The reference report's validation/test accuracy or head-to-head measurements.
 - Ablations attributing a performance gain to any individual model component.
 
 The public tests use fabricated data. A green toolkit test run must not be
