@@ -2,8 +2,10 @@
 
 **Team GALEX · 264 / 6,807 teams · Top 3.9% · Kaggle Silver Medal**
 
-A portfolio case study and verification toolkit for a Pokémon Trading Card Game
-agent trained through **behavior cloning (imitation learning)**.
+A case study of a Pokémon Trading Card Game agent that learns decisions from
+recorded games through **behavior cloning (imitation learning)**. The approach
+combines deck-specific demonstrations, attention-based action scoring, and
+lightweight NumPy inference.
 
 [Competition](https://www.kaggle.com/competitions/pokemon-tcg-ai-battle)
 · [Leaderboard](https://www.kaggle.com/competitions/pokemon-tcg-ai-battle/leaderboard)
@@ -12,76 +14,75 @@ agent trained through **behavior cloning (imitation learning)**.
 
 ## What does the agent do?
 
-At each decision, the game supplies an observation and a set of legal options.
-The agent scores those options and returns their indices. Some decisions require
-one option; others permit several, so the agent must decide both **what to select**
-and **how many to select**. It returns a 60-card deck at the initial deck callback.
+At each decision, the simulator supplies the visible game state and a set of
+legal options. The agent scores those options and returns their indices, subject
+to the permitted selection count. It also supplies a 60-card deck when requested.
 
-This is a decision-making model, not a chatbot. The final submission was based on
-the mentor-provided V76 behavior-cloning approach; **PPO was not used in the final
-model**, according to the supplied training clarification.
+A turn can contain several decisions: the policy runs again at each request,
+rather than generating an entire turn in one pass. The final approach was
+behavior cloning, not PPO self-play.
 
-## Technical highlights
+## Approach
 
-- Encodes observable board state, the player's visible cards, public action
-  history, resource estimates, and candidate actions.
-- Uses two state self-attention blocks, action-to-state cross-attention, and
-  candidate-action self-attention to refine a base action score.
-- Combines base scores with a gated residual and a separate selection-count head.
-- Packages the submitted inference callback in `main.py` with embedded float32
-  weights, alongside `deck.csv`; it uses NumPy rather than PyTorch for inference.
-  Official card metadata remains important for faithful game behavior.
+1. **Select relevant demonstrations.** The supplied V76 pipeline filters replay
+   decisions for the target deck, identified as `3121746f2b28` ("312"). The mentor
+   describes using a rolling window of high-scoring games to learn that deck's
+   action patterns.
+2. **Represent the decision.** Encode cards, board state, candidate actions,
+   public history, resource estimates, and tactical features such as damage,
+   energy cost, and evolution.
+3. **Rank options and choose a count.** A base policy is refined by state/action
+   attention and a gated residual. A separate head predicts how many options to
+   select. Training also uses auxiliary targets for the rest of the turn.
+4. **Export a compact player.** The preserved submission contains `main.py` with
+   embedded float32 weights and `deck.csv`. Inference uses NumPy; training-only
+   plan heads are omitted from the export.
 
-See [method and implementation notes](docs/METHOD.md) for the details and known
-limitations. These describe the supplied team solution, not a claim that all
-model components were independently authored by this repository's maintainer.
+The development progressed from attention-based scoring (V20), to tactical
+features (V40), to auxiliary turn targets (V67). V76 reused the V67 architecture
+and trained all parameters from scratch on an updated dataset.
+See [method, data selection, and version history](docs/METHOD.md).
 
-## Results and verification
+An important observation in the mentor's retrospective was that the newest
+replay window did not always produce the strongest player. The mentor attributed
+this to differences in demonstration quality and changing opponent strategies.
 
-| Item | Recorded result | Evidence / scope |
+## Results
+
+| Measure | Result | Evidence |
 | --- | --- | --- |
-| Competition placement | 264 / 6,807; top 3.9%; silver | Participant-provided Kaggle certificate |
-| Final leaderboard score | 944.2 | Participant-provided leaderboard/submission screenshot; not a win percentage |
-| Stored model parameters | 1,402,487 float32 values in 133 tensors | [Static manifest](evidence/submission_manifest.json); includes unused value-head tensors |
-| Public toolkit tests | 24 passed locally | Standard-library tests using fabricated artifacts |
-| Original submission smoke checks | 12 passed locally | [Local report](evidence/local_smoke_report.json); synthetic interface checks, not matches |
+| Team placement | 264 / 6,807 · top 3.9% · silver | [GALEX certificate](evidence/galex_certificate.png) |
+| Final leaderboard score | 944.2 rating points | Archived leaderboard/submission screenshots |
+| Stored model size | 1,402,487 float32 values · 133 tensors | [Artifact manifest](evidence/submission_manifest.json) |
+| Verification toolkit | 24 unit tests; 12 local synthetic agent checks | [Validation scope](docs/VALIDATION.md) |
 
-Top percentage is `264 / 6807 × 100 = 3.88%`, rounded to 3.9%.
-No claim of an independently reproduced tournament score, training run, or win
-rate is made. See [evaluation scope](docs/VALIDATION.md).
+The parameter count includes stored value-head tensors unused by action scoring.
+The checks validate artifact integrity and interface behavior, not tournament
+strength; leaderboard rating and imitation accuracy are not win percentages.
 
-## Run the public tools
+## What is available and how to run it
 
-With Python 3.12, from this repository's root:
+This release contains **method documentation, result evidence, and executable
+verification tools**. Original agent code and weights are not distributed while
+release permission is being confirmed. A fresh clone runs the toolkit, not the
+trained player; full training also requires missing upstream dependencies.
+
+With Python 3.12, run the public tests from the repository root:
 
 ```bash
 python -m unittest discover -s tests -v
 ```
 
 No third-party packages or competition files are needed for these tests.
+For inspecting an authorized local copy of `submission2.zip`, or running the
+optional trusted-code smoke checks, see [running the tools](docs/REPRODUCIBILITY.md).
 
-If you already have an authorized local copy of `submission2.zip`, verify its
-contents **without executing the submitted code**:
+## Credits
 
-```bash
-python -m tools.inspect_submission /path/to/submission2.zip --expected evidence/submission_manifest.json
-```
+Maintained by **Yuzhen Guan (Alex)** for the GALEX competition entry. The core agent
+and training approach were supplied by competition mentor **kaggle竞赛圈**.
+The post-competition documentation and verification toolkit were prepared with
+AI assistance. [Sources and attribution](docs/PROVENANCE.md) distinguish the team
+result, mentor-provided method, and repository work.
 
-For the optional trusted-code smoke check, see
-[reproduction instructions](docs/REPRODUCIBILITY.md). The inspector is an integrity
-check, not a malware scanner or proof of authorship.
-
-## Release status
-
-This repository currently publishes **the case study, result evidence, inspection
-tools, and synthetic tests**. The original agent source, weights, replay data, and
-mentor reports are **not included**, pending redistribution permission and
-licensing review. A fresh clone therefore does not run the trained agent by itself.
-
-The supplied V76 training bundle also has missing dependencies; full training
-reproduction is not currently available. See
-[provenance and release checklist](docs/PROVENANCE.md).
-
-The verification utilities and documentation were prepared after the competition
-with AI assistance. They did not produce the competition result. This is an
-independent participant portfolio, not an official Pokémon or Kaggle project.
+This is an independent participant project, not an official Pokémon or Kaggle product.

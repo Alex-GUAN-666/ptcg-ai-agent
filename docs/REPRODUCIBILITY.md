@@ -23,7 +23,7 @@ python -m tools.inspect_submission /path/to/submission2.zip --expected evidence/
 ```
 
 On Windows, replace `/path/to/submission2.zip` with your own quoted path, e.g.
-`"C:\Users\YourName\Downloads\submission2.zip"`. The `--expected` comparison
+`"D:\Projects\PTCG\submission2.zip"`. The `--expected` comparison
 requires the recorded `main.py`, `deck.csv`, and embedded-weight hashes. Changing
 ZIP compression alone need not change those member hashes.
 
@@ -68,7 +68,15 @@ chain, original simulator installation, structured feature dataset, or exact
 training checkpoint/export metadata. Several launch scripts also contain
 machine-specific Windows paths.
 
-These dependencies must be collected, their release rights confirmed, paths
-parameterized, and a clean-environment training/export run verified before a
-“train from scratch” command is advertised. There is deliberately no invented
-one-command training recipe in this repository.
+The supplied V76 model initializes all parameters from scratch; its documented
+defaults are not a record of a reproduced run. See
+[training configuration and version history](METHOD.md#training-and-model-evolution).
+
+There is also an unresolved checkpoint/export alignment detail: the preserved
+inference artifact has 204 deck-embedding rows, while the supplied V76 metadata
+lists 181 deck IDs. The exact checkpoint and export metadata are needed to
+connect the training bundle to the final binary weights.
+
+A full training release therefore needs the missing dependencies, confirmed
+release rights, portable paths, checkpoint/export alignment, and a verified
+clean-environment run.

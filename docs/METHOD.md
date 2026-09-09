@@ -1,4 +1,4 @@
-# Method and implementation notes
+# Method: deck-specific behavior cloning
 
 ## Task: ranking a changing set of options
 
@@ -6,16 +6,52 @@ The Python callback receives an observation and a selection request. The
 environment, not the model, supplies candidate options. The agent returns indices
 into that list, subject to minimum and maximum selection counts.
 
-Behavior cloning learns to reproduce choices in recorded trajectories. It is
-supervised imitation learning: the target is a demonstrated choice, not a reward
-obtained from a new self-play rollout. The supplied final-model clarification
-states that PPO was not used. Older files mentioning PPO are not evidence that
-the final submission used it.
+Behavior cloning fits a policy to demonstrated observation/action pairs using
+supervised learning. The final-model clarification and mentor retrospective
+identify BC as the submitted approach; PPO was not used in the final model.
+See the [behavior-cloning definition](https://imitation.readthedocs.io/en/latest/algorithms/bc.html).
+
+One game turn can require many selection requests. The player makes a fresh
+prediction for each request, rather than predicting a complete action sequence
+once per turn. The initial deck callback returns a fixed 60-card list.
+
+## Demonstrations and data selection
+
+In the retrospective (11:13–12:39 and 20:41–22:06), the mentor describes collecting
+high-scoring public replay episodes using a rolling window of about 15 days and
+focusing on the attack-oriented deck nicknamed **312**. This is a shortened deck
+identifier, not the number of cards in the deck.
+
+The supplied V76 builder targets `3121746f2b28` using `--target-only` and specifies
+different per-date limits across July 20–August 3, 2026. Its dataset report gives:
+
+| Prepared-data measure | Reported count |
+| --- | --- |
+| Replay episodes scanned | 31,594 |
+| Target-deck decisions | 2,165,927 |
+| Candidate-option rows across those decisions | 12,424,531 |
+
+These counts cover the supplied prepared dataset, before the trainer's
+positive-weight filtering; option rows are not independent games. The dataset
+was not regenerated for this repository. Exact filtering and weighting details
+also depend on upstream V40 modules absent from the supplied bundle.
+
+### Why the replay window mattered
+
+Across the mentor's experiments, some middle-period models reportedly performed
+better than earlier and later ones. The proposed explanation was that early
+demonstrators were still improving, while later opponents increasingly countered
+the target deck, changing the situations and behaviors available to imitate.
+
+This is a **mentor-reported observation and hypothesis**, not a controlled
+replay-window ablation. The practical lesson is to consider demonstrator quality
+and relevance to the intended strategy, rather than assuming newer or larger
+datasets are always better. A useful follow-up would compare replay windows
+with the architecture, evaluation opponents, and player seats held fixed.
 
 ## Inspected deployed architecture
 
-The following facts are from the locally inspected, unchanged `submission2.zip`.
-The source is withheld from this public repository until its release is cleared.
+The following describes the locally inspected, unchanged `submission2.zip`.
 
 | Component | Role |
 | --- | --- |
@@ -26,7 +62,8 @@ The source is withheld from this public repository until its release is cleared.
 | Count head | Predicts selection counts in classes 0 through 16 |
 | Callback controller | Maintains public-history features and returns top-ranked option indices |
 
-The final score is `base_score + 0.42 × sigmoid(gate) × residual`.
+The final score is `base_score + 0.42 × sigmoid(gate_logit) × residual`.
+The factor 0.42 scales the gated correction, not the base policy score.
 
 For a variable-count request, the code masks disallowed count classes and uses
 the predicted count if its probability is at least 0.40 and it falls within the
@@ -40,35 +77,73 @@ The deployed mask enables the first 72 tactical dimensions. Resource features
 estimate remaining availability from the known own deck and visible information;
 they are not access to hidden opponent cards or future randomness.
 
-## What “1.40M parameters” means here
+### What "1.40M parameters" means
 
-The embedded buffer holds exactly 1,402,487 little-endian float32 values across
-133 tensors, or 5,609,948 bytes. This counts the **stored artifact**, including
-74,113 `base.value.*` values not referenced by the inspected action-scoring path.
-It is not a claim that every stored parameter is used in each inference call.
+The preserved inference buffer holds 1,402,487 little-endian float32 values
+across 133 tensors, or 5,609,948 bytes. This is the stored artifact count,
+including 74,113 `base.value.*` values not used by the action-scoring path.
 
-The buffer's SHA-256 checksum, tensor offsets, shapes, and finite float values are
-checked by the public inspector. Hashes identify the local artifact, not its
-author or the file that Kaggle actually evaluated.
+The public inspector checks the buffer's SHA-256 checksum, tensor offsets,
+shapes, and finite float values. The meeting's approximate model-size estimate
+is not used in place of this measured export count.
 
-## Training context: V76, not a reproduced experiment
+## Training and model evolution
 
-The provided `train_plan_scratch_all.py` initializes the model from scratch and
-trains all parameters. It delegates the loss/data-loader implementation to older
-modules. The associated method uses a listwise imitation objective, selection-
-count supervision, and training-only auxiliary turn-plan targets. Those plan
-heads are not present in the final embedded parameter layout.
+The retrospective (23:01–29:29) explains the development sequence. V67/V76 source
+files support the later stages; V20/V40 history is described by the mentor.
 
-The supplied V76 dataset report records 31,594 scanned episodes, 2,165,927
-decisions, and 12,424,531 option rows. These are **reported data-preparation
-counts**, not a dataset regenerated here or a proven description of the exact
-checkpoint embedded in GALEX's final file.
+| Version | Main change | Purpose |
+| --- | --- | --- |
+| V20 | State/action attention and interactions among candidate actions | Condition action scores on the board and other available choices |
+| V40 | Tactical feature branch | Represent damage, energy cost, HP, and evolution beyond card identity |
+| V67 | Three training-only turn-plan heads | Add supervision about the remainder of the current turn |
+| V76 | Same V67 architecture, updated demonstrations, random initialization of all parameters | Jointly learn the complete policy from scratch rather than warm-starting it |
 
-The mentor identified V76 as the final solution's source. Source-level behavior
-is consistent with that lineage, but the provided materials do not prove a
-byte-for-byte training-checkpoint mapping. For example, the deployed deck
-embedding has 204 rows, while the supplied V76 metadata lists 181 deck IDs.
-An exact checkpoint and export manifest are needed to resolve that gap.
+The V67 training script already includes a head-only warm-up followed by joint
+fine-tuning from a V40 checkpoint. V76's distinguishing change is **no warm start**,
+with all parameters trainable from the beginning; it is not the first version
+ever to update the earlier layers jointly.
+
+### Auxiliary targets and losses
+
+The V67 target builder uses later recorded decisions in the same episode/turn/
+split group to supervise three heads:
+
+- Which of eight broad action categories occur later in the turn.
+- The next action category, including a no-next-action class.
+- A bucketed next-card identifier.
+
+These are training labels, not future information supplied to the player at
+inference. The model consumes current-state features; `policy_state_dict`
+removes all `plan_*` tensors when exporting the policy.
+
+The inherited training objective combines listwise behavior cloning, a base-
+policy imitation term, pairwise ranking, selection-count loss, residual/gate
+regularization, and weighted auxiliary losses. This supervises both action
+preference and the number of selected options.
+
+### V76 training configuration
+
+The supplied entry point uses AdamW, batch size 128 by default, and two
+configurable phases:
+
+| Phase | Default epochs | Learning rate |
+| --- | --- | --- |
+| Scratch training | 20 | 0.0003 |
+| Refinement | 8 | 0.00008 |
+
+The mentor reported often finding a useful checkpoint after roughly ten or more
+epochs and little benefit from refinement. That observation does not change the
+script defaults or establish the exact epoch used by GALEX. The script selects
+a checkpoint primarily by validation top-1 agreement, with loss and auxiliary
+accuracy as tie-breakers.
+
+The meeting mentions roughly 70% validation action accuracy for an earlier
+version and around 79% for later models. These are **mentor-reported measurements
+from different runs**, not a reproduced, fixed-data ablation. In the inspected
+trainer, top-1 agreement means the highest-scoring option is among the
+demonstrator's selected options. It is neither exact multi-option-set accuracy
+nor a game win rate. No V76 training run was reproduced for this portfolio.
 
 ## Engineering limitations to investigate
 
@@ -78,12 +153,12 @@ An exact checkpoint and export manifest are needed to resolve that gap.
 - **Schema alignment:** some helper functions expect a `public` field while
   others read `current`; numeric area mappings in a target-slot helper also
   differ from the embedded `AreaType` enumeration. These are review findings,
-  not measured explanations for the leaderboard result. Official observations
-  are needed to establish their effect.
+  not measured explanations for the leaderboard result.
 - **Count range:** the count head supports 0–16, while the callback has a fallback
   for other cases. A few passing fixtures do not validate every request shape.
 - **History behavior:** reset and repeated-input paths receive synthetic smoke
   checks, not a full audit of log semantics across complete games.
 
-The original award artifact has not been “fixed” or rewritten. Any later change
-should be a separately versioned improvement with its own simulator evaluation.
+Exact checkpoint-to-export lineage and full training dependencies remain open;
+see [reproduction status](REPRODUCIBILITY.md). The preserved competition artifact
+is unchanged. Any later model modification should be evaluated as a separate version.

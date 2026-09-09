@@ -9,9 +9,9 @@ team **GALEX**, **264th of 6,807 teams**, a **Silver Medal**, and an award date 
 2026-08-31. The supplied leaderboard/submission screenshots show a final score
 of **944.2**. The score is not a win percentage.
 
-These are the participant's archived evidence. They have not been independently
-re-fetched from an authenticated Kaggle result API. The related mentor method
-report discusses another placement; that ranking is not substituted for GALEX's.
+The placement and rating are taken from the participant's archived competition
+evidence. The mentor's method history is documented separately in
+[method notes](METHOD.md).
 
 ## Checks performed locally
 
@@ -20,7 +20,7 @@ report discusses another placement; that ranking is not substituted for GALEX's.
 | Exact ZIP members | `main.py` + `deck.csv` only | Competition acceptance or authorship |
 | Parameter buffer | SHA-256, 1,402,487 finite float32 values, 133 contiguous tensor layouts verified | Training quality or exact V76 checkpoint lineage |
 | Deck text | 60 positive integer IDs, 19 unique IDs | Full deck legality under competition rules |
-| Public unit suite | 24 tests passed | Original model strength |
+| Public unit suite | 24 tests passed locally and on GitHub Actions | Original model strength |
 | Trusted original-artifact smoke | 12 checks passed | Reachable game states, all game rules, or match win rate |
 
 Runtime used: Python 3.12.14 / NumPy 2.3.5 on Linux. The `cg` package was absent,
@@ -28,6 +28,16 @@ so these smoke results include fallback metadata, not official card-data parity.
 The original `main.py` and `deck.csv` were not modified. Source and weight hashes are recorded in
 [submission_manifest.json](../evidence/submission_manifest.json); smoke outputs
 are recorded separately in [local_smoke_report.json](../evidence/local_smoke_report.json).
+
+The public unit suite also runs in [GitHub Actions](https://github.com/Alex-GUAN-666/ptcg-ai-agent/actions/workflows/toolkit-tests.yml).
+
+## Reading the training metrics
+
+The mentor's retrospective reports validation action agreement around 79% for
+later models. Those figures are not reproduced measurements in this repository.
+The supplied trainer's top-1 metric checks whether its highest-scoring option
+belongs to the demonstrator's selected options; count prediction is evaluated
+separately. Neither metric is a tournament win rate.
 
 ## Not reproduced
 

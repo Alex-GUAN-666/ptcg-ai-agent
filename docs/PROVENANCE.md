@@ -1,25 +1,38 @@
-# Provenance and release status
+# Sources, credits, and release status
 
 ## Attribution
 
 This is a portfolio for **team GALEX's** entry in
 **The Pokémon Company - PTCG AI Battle Challenge Simulation**.
 
-The core solution and V76 training materials were supplied by a mentor. Credit
-for the competition result is at the GALEX team level; the method and training
-materials are attributed to the mentor. This repository does not assign sole
-authorship of the model to its maintainer. Individual implementation and training
-roles will be documented separately after confirmation.
+The repository is maintained by **Yuzhen Guan (Alex)**. The core agent and V76
+training approach were supplied by competition mentor **kaggle竞赛圈**, who also
+provided the technical retrospective. Credit for the competition placement is
+at the GALEX team level.
 
 The post-competition inspection utilities, tests, and explanatory documentation
 were prepared with Codex assistance. They are distinct from the submitted
 competition system and did not cause its leaderboard performance.
 
-The supplied method report references
-[Imitation learning for deck 312](https://www.kaggle.com/competitions/pokemon-tcg-ai-battle/writeups/imitation-learning-for-deck-312).
-That is a method reference, not verification of GALEX's rank or a grant of
-redistribution rights. The linked page's contents were not independently
-retrieved during this audit.
+## Basis for the case study
+
+| Source | Used for |
+| --- | --- |
+| Participant-provided certificate and leaderboard/submission screenshots | GALEX's 264 / 6,807 placement, silver medal, and 944.2 final rating |
+| Preserved `submission2.zip` | Inference behavior, parameter layout, and file hashes recorded in the [manifest](../evidence/submission_manifest.json) |
+| Supplied V67/V76 model, target-builder, and trainer files | Auxiliary targets, warm-start versus scratch training, export behavior, and script defaults |
+| Supplied V76 dataset report | Counts of scanned episodes, prepared decisions, and option rows |
+| Participant-supplied mentor meeting transcript | Data-selection rationale, version history, and reported experimental observations |
+
+The transcript's recording date was not supplied. Relevant segments are
+11:13–12:39 (demonstrations), 20:41–22:06 (replay selection and temporal effects),
+23:01–25:40 (model evolution), and 26:39–29:29 (training and per-decision inference).
+The public [method notes](METHOD.md) summarize these sections rather than
+reproducing the meeting or identifying other attendees.
+
+Source code is used for exact configuration details where the spoken account is
+approximate. Meeting-reported accuracy is labeled separately from measured
+artifact properties and the team's competition result.
 
 ## Public contents
 
@@ -27,23 +40,18 @@ retrieved during this audit.
 - Synthetic test inputs and generated inspection summaries; no weight values.
 - The participant-provided result certificate.
 
-The repository does **not** distribute the mentor's Python implementation,
-model weights, full reports, conversations, replay dataset, game SDK, or card art.
-It has no blanket open-source license pending a deliberate licensing decision.
-No license or trademark rights over third-party material are asserted.
+Original agent source, weights, raw replay data, mentor reports, and the full
+meeting transcript are not distributed. Source/weight release permission is
+still being confirmed. No repository-wide open-source license has been applied;
+third-party rights and attribution must be resolved before extending the release.
 
 ## Before releasing the original model
 
-- [ ] Obtain confirmation from the relevant mentor/team rights holders for
-  publishing source code and model weights; record the requested attribution.
+- [ ] Confirm permission to publish the original source and weights, with the
+  relevant mentor/team rights holders and their requested attribution.
 - [ ] Check competition rules and licenses for incorporated SDK/data/code.
-- [ ] Identify the actual final checkpoint and its export relationship to the
-  preserved submission; keep later changes separately versioned.
-- [ ] Preserve original author/license notices and scan for credentials,
+- [ ] Identify the final checkpoint and its export relationship to the preserved
+  submission; version subsequent changes separately.
+- [ ] Preserve original author/license notices and check for credentials,
   private paths, and unrelated personal files.
 - [ ] Verify installation and official-simulator behavior from a clean environment.
-- [ ] Document each participant's actual role before adding personal authorship
-  or leadership claims to the portfolio or CV.
-
-Being publicly viewable does not make a third-party work freely reusable.
-Changing comments or variable names does not establish independent authorship.
