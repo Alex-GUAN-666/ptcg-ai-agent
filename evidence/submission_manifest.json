@@ -1,0 +1,474 @@
+{
+  "format": "galex-two-file-embedded-float32",
+  "archive_sha256": "42b4f00ac081c9e248c8fc0bfac7e71b6f7c3ab17b5ae217869da692f3469014",
+  "files": {
+    "deck.csv": {
+      "bytes": 312,
+      "sha256": "48f1a03e8ab8162f6dc608e6743a4f3b32004cb702ca447050e62055b85defbf"
+    },
+    "main.py": {
+      "bytes": 7565467,
+      "sha256": "462488e54b75feb0515c8a5bc8561ab414baad4f3a4dae6faa398052eef3dc44"
+    }
+  },
+  "parameters": {
+    "stored_float32_values": 1402487,
+    "bytes": 5609948,
+    "sha256": "70a283984fb2f21e93d9dcb67ca7fc228622523d80124140e206560e003a144e",
+    "tensor_count": 133,
+    "tensor_shapes": {
+      "action_block.attn.k.bias": [
+        128
+      ],
+      "action_block.attn.k.weight": [
+        128,
+        128
+      ],
+      "action_block.attn.norm.bias": [
+        128
+      ],
+      "action_block.attn.norm.weight": [
+        128
+      ],
+      "action_block.attn.out.bias": [
+        128
+      ],
+      "action_block.attn.out.weight": [
+        128,
+        128
+      ],
+      "action_block.attn.q.bias": [
+        128
+      ],
+      "action_block.attn.q.weight": [
+        128,
+        128
+      ],
+      "action_block.attn.v.bias": [
+        128
+      ],
+      "action_block.attn.v.weight": [
+        128,
+        128
+      ],
+      "action_block.ff.net.0.bias": [
+        384
+      ],
+      "action_block.ff.net.0.weight": [
+        384,
+        128
+      ],
+      "action_block.ff.net.2.bias": [
+        128
+      ],
+      "action_block.ff.net.2.weight": [
+        128,
+        384
+      ],
+      "action_block.ff.norm.bias": [
+        128
+      ],
+      "action_block.ff.norm.weight": [
+        128
+      ],
+      "action_num.0.bias": [
+        64
+      ],
+      "action_num.0.weight": [
+        64,
+        32
+      ],
+      "action_num.2.bias": [
+        64
+      ],
+      "action_num.2.weight": [
+        64
+      ],
+      "action_project.0.bias": [
+        128
+      ],
+      "action_project.0.weight": [
+        128,
+        353
+      ],
+      "action_project.2.bias": [
+        128
+      ],
+      "action_project.2.weight": [
+        128
+      ],
+      "base.action.0.bias": [
+        160
+      ],
+      "base.action.0.weight": [
+        160,
+        64
+      ],
+      "base.action.2.bias": [
+        128
+      ],
+      "base.action.2.weight": [
+        128,
+        160
+      ],
+      "base.action.4.bias": [
+        128
+      ],
+      "base.action.4.weight": [
+        128
+      ],
+      "base.card.weight": [
+        1268,
+        96
+      ],
+      "base.deck.weight": [
+        204,
+        32
+      ],
+      "base.policy.0.bias": [
+        320
+      ],
+      "base.policy.0.weight": [
+        320,
+        640
+      ],
+      "base.policy.3.bias": [
+        160
+      ],
+      "base.policy.3.weight": [
+        160,
+        320
+      ],
+      "base.policy.5.bias": [
+        1
+      ],
+      "base.policy.5.weight": [
+        1,
+        160
+      ],
+      "base.state.0.bias": [
+        256
+      ],
+      "base.state.0.weight": [
+        256,
+        128
+      ],
+      "base.state.2.bias": [
+        192
+      ],
+      "base.state.2.weight": [
+        192,
+        256
+      ],
+      "base.state.4.bias": [
+        192
+      ],
+      "base.state.4.weight": [
+        192
+      ],
+      "base.token.0.bias": [
+        192
+      ],
+      "base.token.0.weight": [
+        192,
+        96
+      ],
+      "base.token.2.bias": [
+        192
+      ],
+      "base.token.2.weight": [
+        192,
+        192
+      ],
+      "base.token.4.bias": [
+        192
+      ],
+      "base.token.4.weight": [
+        192
+      ],
+      "base.value.0.bias": [
+        192
+      ],
+      "base.value.0.weight": [
+        192,
+        384
+      ],
+      "base.value.2.bias": [
+        1
+      ],
+      "base.value.2.weight": [
+        1,
+        192
+      ],
+      "base.zone.weight": [
+        16,
+        96
+      ],
+      "count_head.0.bias": [
+        464
+      ],
+      "count_head.0.weight": [
+        464
+      ],
+      "count_head.1.bias": [
+        128
+      ],
+      "count_head.1.weight": [
+        128,
+        464
+      ],
+      "count_head.3.bias": [
+        17
+      ],
+      "count_head.3.weight": [
+        17,
+        128
+      ],
+      "cross.k.bias": [
+        128
+      ],
+      "cross.k.weight": [
+        128,
+        128
+      ],
+      "cross.kv_norm.bias": [
+        128
+      ],
+      "cross.kv_norm.weight": [
+        128
+      ],
+      "cross.out.bias": [
+        128
+      ],
+      "cross.out.weight": [
+        128,
+        128
+      ],
+      "cross.q.bias": [
+        128
+      ],
+      "cross.q.weight": [
+        128,
+        128
+      ],
+      "cross.q_norm.bias": [
+        128
+      ],
+      "cross.q_norm.weight": [
+        128
+      ],
+      "cross.v.bias": [
+        128
+      ],
+      "cross.v.weight": [
+        128,
+        128
+      ],
+      "delta.0.bias": [
+        128
+      ],
+      "delta.0.weight": [
+        128
+      ],
+      "delta.1.bias": [
+        128
+      ],
+      "delta.1.weight": [
+        128,
+        128
+      ],
+      "delta.3.bias": [
+        1
+      ],
+      "delta.3.weight": [
+        1,
+        128
+      ],
+      "entity_delta.0.bias": [
+        96
+      ],
+      "entity_delta.0.weight": [
+        96,
+        24
+      ],
+      "entity_delta.2.bias": [
+        96
+      ],
+      "entity_delta.2.weight": [
+        96
+      ],
+      "entity_project.0.bias": [
+        128
+      ],
+      "entity_project.0.weight": [
+        128,
+        96
+      ],
+      "entity_project.2.bias": [
+        128
+      ],
+      "entity_project.2.weight": [
+        128
+      ],
+      "gate.0.bias": [
+        129
+      ],
+      "gate.0.weight": [
+        129
+      ],
+      "gate.1.bias": [
+        64
+      ],
+      "gate.1.weight": [
+        64,
+        129
+      ],
+      "gate.3.bias": [
+        1
+      ],
+      "gate.3.weight": [
+        1,
+        64
+      ],
+      "state_blocks.0.attn.k.bias": [
+        128
+      ],
+      "state_blocks.0.attn.k.weight": [
+        128,
+        128
+      ],
+      "state_blocks.0.attn.norm.bias": [
+        128
+      ],
+      "state_blocks.0.attn.norm.weight": [
+        128
+      ],
+      "state_blocks.0.attn.out.bias": [
+        128
+      ],
+      "state_blocks.0.attn.out.weight": [
+        128,
+        128
+      ],
+      "state_blocks.0.attn.q.bias": [
+        128
+      ],
+      "state_blocks.0.attn.q.weight": [
+        128,
+        128
+      ],
+      "state_blocks.0.attn.v.bias": [
+        128
+      ],
+      "state_blocks.0.attn.v.weight": [
+        128,
+        128
+      ],
+      "state_blocks.0.ff.net.0.bias": [
+        384
+      ],
+      "state_blocks.0.ff.net.0.weight": [
+        384,
+        128
+      ],
+      "state_blocks.0.ff.net.2.bias": [
+        128
+      ],
+      "state_blocks.0.ff.net.2.weight": [
+        128,
+        384
+      ],
+      "state_blocks.0.ff.norm.bias": [
+        128
+      ],
+      "state_blocks.0.ff.norm.weight": [
+        128
+      ],
+      "state_blocks.1.attn.k.bias": [
+        128
+      ],
+      "state_blocks.1.attn.k.weight": [
+        128,
+        128
+      ],
+      "state_blocks.1.attn.norm.bias": [
+        128
+      ],
+      "state_blocks.1.attn.norm.weight": [
+        128
+      ],
+      "state_blocks.1.attn.out.bias": [
+        128
+      ],
+      "state_blocks.1.attn.out.weight": [
+        128,
+        128
+      ],
+      "state_blocks.1.attn.q.bias": [
+        128
+      ],
+      "state_blocks.1.attn.q.weight": [
+        128,
+        128
+      ],
+      "state_blocks.1.attn.v.bias": [
+        128
+      ],
+      "state_blocks.1.attn.v.weight": [
+        128,
+        128
+      ],
+      "state_blocks.1.ff.net.0.bias": [
+        384
+      ],
+      "state_blocks.1.ff.net.0.weight": [
+        384,
+        128
+      ],
+      "state_blocks.1.ff.net.2.bias": [
+        128
+      ],
+      "state_blocks.1.ff.net.2.weight": [
+        128,
+        384
+      ],
+      "state_blocks.1.ff.norm.bias": [
+        128
+      ],
+      "state_blocks.1.ff.norm.weight": [
+        128
+      ],
+      "state_project.0.bias": [
+        128
+      ],
+      "state_project.0.weight": [
+        128,
+        400
+      ],
+      "state_project.2.bias": [
+        128
+      ],
+      "state_project.2.weight": [
+        128
+      ],
+      "tactic_num.0.bias": [
+        64
+      ],
+      "tactic_num.0.weight": [
+        64,
+        96
+      ],
+      "tactic_num.2.bias": [
+        64
+      ],
+      "tactic_num.2.weight": [
+        64
+      ]
+    }
+  },
+  "deck": {
+    "card_count": 60,
+    "unique_card_ids": 19
+  },
+  "code_executed": false
+}

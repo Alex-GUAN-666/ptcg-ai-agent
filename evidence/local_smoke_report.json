@@ -1,0 +1,86 @@
+{
+  "checked_on": "2026-09-09",
+  "scope": "synthetic_interface_only_not_a_game_evaluation",
+  "python": "3.12.14",
+  "numpy": "2.3.5",
+  "cg_package_detected": false,
+  "checks_passed": 12,
+  "checks": [
+    "deck_callback",
+    "empty_options",
+    "single_option",
+    "choose_one_of_two",
+    "choose_two_of_four",
+    "variable_zero_to_three",
+    "variable_one_to_four",
+    "count_head_limit",
+    "fixed_count_above_head_limit",
+    "step_reset",
+    "repeated_input",
+    "finite_scores_and_count_logits"
+  ],
+  "example_selections": {
+    "empty_options": [],
+    "single_option": [
+      0
+    ],
+    "choose_one_of_two": [
+      1
+    ],
+    "choose_two_of_four": [
+      3,
+      2
+    ],
+    "variable_zero_to_three": [
+      4,
+      3
+    ],
+    "variable_one_to_four": [
+      4,
+      3
+    ],
+    "count_head_limit": [
+      7,
+      6,
+      8,
+      9,
+      5,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      4
+    ],
+    "fixed_count_above_head_limit": [
+      8,
+      9,
+      7,
+      10,
+      11,
+      12,
+      13,
+      6,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      5,
+      4,
+      3
+    ]
+  },
+  "limitations": [
+    "No official simulator matches or win rates were evaluated.",
+    "Synthetic observations need not represent reachable game states.",
+    "Card/attack metadata fidelity is not checked; cg.api may be absent.",
+    "Passing does not prove all possible selections or game rules are handled."
+  ]
+}

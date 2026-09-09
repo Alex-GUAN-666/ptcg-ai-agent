@@ -1,0 +1,3 @@
+# Tested for the optional, trusted local submission smoke check only.
+# The static inspector and public unit tests need no third-party packages.
+numpy==2.3.5

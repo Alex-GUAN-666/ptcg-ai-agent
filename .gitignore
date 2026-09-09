@@ -216,3 +216,23 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Competition artifacts stay local until publication rights are confirmed.
+local_artifacts/
+private/
+data/
+checkpoints/
+runs/
+*.zip
+*.tar.gz
+*.npy
+*.npz
+*.pt
+*.pth
+.env.*
+kaggle.json
+# No original mentor reports, resumes, or chat exports in this public repository.
+*.pdf
+*.docx
+*.pptx
+
